@@ -2,16 +2,12 @@ using System.Net.Http.Json;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using TaskManagement.Business.Models;
-using TaskManagement.Models;
 
-public class TaskItemControllerTests : IClassFixture<WebApplicationFactory<Program>>
+public class TaskManagementIntegrationTests : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly HttpClient _client;
 
-    public TaskItemControllerTests(WebApplicationFactory<Program> factory)
-    {
-        _client = factory.CreateClient();
-    }
+    public TaskManagementIntegrationTests(WebApplicationFactory<Program> factory) => _client = factory.CreateClient();
 
     [Fact]
     public async Task GetAllTaskItems_ReturnsOkResponse()
@@ -34,10 +30,10 @@ public class TaskItemControllerTests : IClassFixture<WebApplicationFactory<Progr
     [Fact]
     public async Task CreateTaskItem_ReturnsCreatedResponse()
     {
-        var newTaskItem = new TaskItemDto { Title = "Test Task", Description = "Test Description", DueDate = DateTime.UtcNow, Priority = Priority.Medium, Status = Status.Open };
+        var newTaskItem = new TaskItemDto { Title = "Test Task", Description = "Test Description", DueDate = DateTime.UtcNow.AddDays(1), Priority = Priority.Medium, Status = Status.Open };
         var response = await _client.PostAsJsonAsync("/api/tasks", newTaskItem);
         response.EnsureSuccessStatusCode();
-        var createdTaskItem = await response.Content.ReadFromJsonAsync<TaskItemDetailsDto>();
+        var createdTaskItem = await response.Content.ReadFromJsonAsync<TaskItemDto>();
         createdTaskItem.Should().NotBeNull();
         createdTaskItem.Title.Should().Be("Test Task");
     }
@@ -57,3 +53,4 @@ public class TaskItemControllerTests : IClassFixture<WebApplicationFactory<Progr
         response.StatusCode.Should().Be(System.Net.HttpStatusCode.NoContent);
     }
 }
+
