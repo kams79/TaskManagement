@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using TaskManagement.Entities;
-using TaskManagement.Models;
+using TaskManagement.Business.Models;
+using TaskManagement.DataAccess.Entities;
 
-namespace TaskManagement.Validators
+namespace TaskManagement.Business.Validators
 {
     public class TaskItemProfile : Profile
     {

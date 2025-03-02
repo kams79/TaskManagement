@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
-using TaskManagement.DbContexts;
-using TaskManagement.Entities;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
-using TaskManagement.Models;
+using TaskManagement.DataAccess.DbContexts;
+using TaskManagement.DataAccess.Entities;
+using TaskManagement.Business.Models;
 
 namespace TaskManagement.Controllers
 {

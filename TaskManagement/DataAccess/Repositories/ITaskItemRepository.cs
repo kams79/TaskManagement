@@ -1,7 +1,7 @@
-﻿using TaskManagement.Entities;
-using TaskManagement.Models;
+﻿using TaskManagement.Business.Models;
+using TaskManagement.DataAccess.Entities;
 
-namespace TaskManagement.Services
+namespace TaskManagement.DataAccess.Services
 {
     public interface ITaskItemRepository
     {

@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using TaskManagement.Models;
+using TaskManagement.Business.Models;
 
-namespace TaskManagement.Entities
+namespace TaskManagement.DataAccess.Entities
 {
     public class TaskItem
     {

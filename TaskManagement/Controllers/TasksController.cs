@@ -1,9 +1,9 @@
 using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using TaskManagement.Entities;
-using TaskManagement.Models;
-using TaskManagement.Services;
+using TaskManagement.Business.Models;
+using TaskManagement.DataAccess.Entities;
+using TaskManagement.DataAccess.Services;
 using ValidationResult = FluentValidation.Results.ValidationResult;
 
 namespace TaskManagement.Controllers

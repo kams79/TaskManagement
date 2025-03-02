@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
-using TaskManagement.DbContexts;
+using TaskManagement.Business.Models;
+using TaskManagement.Business.Validators;
+using TaskManagement.DataAccess.DbContexts;
+using TaskManagement.DataAccess.Services;
 using TaskManagement.Entities;
 using TaskManagement.Middleware;
-using TaskManagement.Models;
-using TaskManagement.Services;
-using TaskManagement.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,7 +37,7 @@ builder.Services.AddScoped<IValidator<TaskItemDto>, TaskValidator>();
 
 builder.Services.AddDbContext<TaskItemContext>(options =>
     options
-    .UseInMemoryDatabase("InMemoryDbForTesting"));
+    .UseSqlite("Data Source =:memory:"));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();

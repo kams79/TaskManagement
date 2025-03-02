@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TaskManagement.Entities;
-using TaskManagement.Models;
+using TaskManagement.Business.Models;
+using TaskManagement.DataAccess.Entities;
 
-namespace TaskManagement.DbContexts
+namespace TaskManagement.DataAccess.DbContexts
 {
     public class TaskItemContext : DbContext
     {

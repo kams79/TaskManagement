@@ -1,11 +1,11 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using TaskManagement.DbContexts;
-using TaskManagement.Entities;
-using TaskManagement.Models;
+using TaskManagement.Business.Models;
+using TaskManagement.DataAccess.DbContexts;
+using TaskManagement.DataAccess.Entities;
 
-namespace TaskManagement.Services
+namespace TaskManagement.DataAccess.Services
 {
     public class TaskItemRepository : ITaskItemRepository
     {
@@ -94,7 +94,7 @@ namespace TaskManagement.Services
 
         public async Task<bool> SaveChangesAsync()
         {
-            return (await _context.SaveChangesAsync() >= 0);
+            return await _context.SaveChangesAsync() >= 0;
         }
     }
 }

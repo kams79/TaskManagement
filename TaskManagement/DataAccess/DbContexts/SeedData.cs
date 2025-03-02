@@ -1,6 +1,6 @@
-using TaskManagement.DbContexts;
+using TaskManagement.Business.Models;
+using TaskManagement.DataAccess.DbContexts;
 using TaskManagement.Entities;
-using TaskManagement.Models;
 
 public static class SeedData
 {

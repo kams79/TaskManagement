@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
+using TaskManagement.Business.Models;
 using TaskManagement.Entities;
-using TaskManagement.Models;
 
-namespace TaskManagement.Validators
+namespace TaskManagement.Business.Validators
 {
     public class TaskValidator : AbstractValidator<TaskItemDto>
     {

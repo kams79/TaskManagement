@@ -1,4 +1,4 @@
-﻿namespace TaskManagement.Models
+﻿namespace TaskManagement.Business.Models
 {
     public class UserDto
     {
