@@ -32,10 +32,6 @@ builder.Services.AddScoped<ITaskItemRepository, TaskItemRepository>();
 builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IValidator<TaskItemDto>, TaskValidator>();
 
-//builder.Services.AddDbContext<TaskItemContext>(options =>
-//    options
-//    .UseSqlite("Data Source =:memory:"));
-
 builder.Services.AddDbContext<TaskItemContext>(options =>
     options
     .UseInMemoryDatabase("DataBase"));
