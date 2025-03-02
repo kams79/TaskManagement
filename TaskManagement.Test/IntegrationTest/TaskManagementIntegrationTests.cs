@@ -41,7 +41,7 @@ public class TaskManagementIntegrationTests : IClassFixture<WebApplicationFactor
     [Fact]
     public async Task UpdateTaskItem_ReturnsNoContentResponse()
     {
-        var updatedTaskItem = new TaskItemDto { Title = "Updated Task", Description = "Updated Description", DueDate = DateTime.UtcNow, Priority = Priority.High, Status = Status.InProgress };
+        var updatedTaskItem = new TaskItemDto { Title = "Updated Task", Description = "Updated Description", DueDate = DateTime.UtcNow.AddDays(1), Priority = Priority.High, Status = Status.InProgress };
         var response = await _client.PutAsJsonAsync("/api/tasks/1", updatedTaskItem);
         response.StatusCode.Should().Be(System.Net.HttpStatusCode.NoContent);
     }
