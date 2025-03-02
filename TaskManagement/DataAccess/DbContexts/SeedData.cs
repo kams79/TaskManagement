@@ -1,9 +1,16 @@
 using TaskManagement.Business.Models;
 using TaskManagement.DataAccess.DbContexts;
-using TaskManagement.Entities;
+using TaskManagement.DataAccess.Entities;
 
+/// <summary>
+/// Provides methods to seed initial data into the database context.
+/// </summary>
 public static class SeedData
 {
+    /// <summary>
+    /// Initializes the database with seed data.
+    /// </summary>
+    /// <param name="context">The database context to seed data into.</param>
     public static void Initialize(TaskItemContext context)
     {
         context.Users.AddRange(

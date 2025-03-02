@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using TaskManagement.Business.Models;
-using TaskManagement.Entities;
 
 namespace TaskManagement.Business.Validators
 {

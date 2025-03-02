@@ -60,7 +60,8 @@ namespace TaskManagement.Controllers
             var newTask = await _taskItemRepository.CreateTaskAsync(_mapper.Map<TaskItem>(task));
             _logger.LogInformation("Task created: {Task}", task);
             return CreatedAtAction(nameof(CreateTask), new { id = newTask.TaskItemId }, _mapper.Map<TaskItemDto>(task));
-        }
+        }
+
 
         /// <summary>
         /// Updates an existing task.
