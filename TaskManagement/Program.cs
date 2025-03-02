@@ -1,13 +1,10 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
 using System.Reflection;
 using TaskManagement.Business.Models;
 using TaskManagement.Business.Validators;
 using TaskManagement.DataAccess.DbContexts;
 using TaskManagement.DataAccess.Services;
-using TaskManagement.Entities;
 using TaskManagement.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,9 +32,14 @@ builder.Services.AddScoped<ITaskItemRepository, TaskItemRepository>();
 builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IValidator<TaskItemDto>, TaskValidator>();
 
+//builder.Services.AddDbContext<TaskItemContext>(options =>
+//    options
+//    .UseSqlite("Data Source =:memory:"));
+
 builder.Services.AddDbContext<TaskItemContext>(options =>
     options
-    .UseSqlite("Data Source =:memory:"));
+    .UseInMemoryDatabase("DataBase"));
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
@@ -64,3 +66,8 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
+
+/// <summary>
+/// The main entry point for the application.
+/// </summary>
+public partial class Program { }
