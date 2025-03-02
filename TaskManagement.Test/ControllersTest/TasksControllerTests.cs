@@ -10,9 +10,10 @@ using TaskManagement.Business.Models;
 using TaskManagement.Controllers;
 using TaskManagement.DataAccess.Entities;
 using TaskManagement.DataAccess.Services;
+using TaskManagement.Test.Data;
 using Xunit;
 
-namespace TaskManagement.Tests.Controllers
+namespace TaskManagement.Test.ControllersTest
 {
     public class TasksControllerTests
     {
@@ -35,8 +36,8 @@ namespace TaskManagement.Tests.Controllers
         public async Task CreateTask_ValidTask_ReturnsCreatedAtActionResult()
         {
             // Arrange
-            var taskDto = new TaskItemDto { Title = "Test Task" };
-            var task = new TaskItem { TaskItemId = 1, Title = "Test Task" };
+            var taskDto = TestData.ValidTaskDto;
+            var task = TestData.ValidTask;
             _validatorMock.Setup(v => v.ValidateAsync(It.IsAny<ValidationContext<TaskItemDto>>(), default))
                 .ReturnsAsync(new ValidationResult());
             _mapperMock.Setup(m => m.Map<TaskItem>(taskDto)).Returns(task);
@@ -55,8 +56,8 @@ namespace TaskManagement.Tests.Controllers
         public async Task CreateTask_InvalidTask_ReturnsBadRequest()
         {
             // Arrange
-            var taskDto = new TaskItemDto { Title = "Test Task" };
-            var validationResult = new ValidationResult(new List<ValidationFailure> { new ValidationFailure("Title", "Error") });
+            var taskDto = TestData.ValidTaskDto;
+            var validationResult = TestData.InvalidValidationResult;
             _validatorMock.Setup(v => v.ValidateAsync(It.IsAny<ValidationContext<TaskItemDto>>(), default))
                 .ReturnsAsync(validationResult);
 
@@ -72,7 +73,7 @@ namespace TaskManagement.Tests.Controllers
         public async Task UpdateTask_ValidTask_ReturnsNoContent()
         {
             // Arrange
-            var taskDto = new TaskItemDto { Title = "Updated Task" };
+            var taskDto = TestData.UpdatedTaskDto;
             _validatorMock.Setup(v => v.ValidateAsync(It.IsAny<ValidationContext<TaskItemDto>>(), default))
                 .ReturnsAsync(new ValidationResult());
 
@@ -87,8 +88,8 @@ namespace TaskManagement.Tests.Controllers
         public async Task UpdateTask_InvalidTask_ReturnsBadRequest()
         {
             // Arrange
-            var taskDto = new TaskItemDto { Title = "Updated Task" };
-            var validationResult = new ValidationResult(new List<ValidationFailure> { new ValidationFailure("Title", "Error") });
+            var taskDto = TestData.UpdatedTaskDto;
+            var validationResult = TestData.InvalidValidationResult;
             _validatorMock.Setup(v => v.ValidateAsync(It.IsAny<ValidationContext<TaskItemDto>>(), default))
                 .ReturnsAsync(validationResult);
 
@@ -114,8 +115,8 @@ namespace TaskManagement.Tests.Controllers
         public async Task GetTask_ValidId_ReturnsOkObjectResult()
         {
             // Arrange
-            var task = new TaskItem { TaskItemId = 1, Title = "Test Task" };
-            var taskDto = new TaskItemDetailsDto { Title = "Test Task" };
+            var task = TestData.ValidTask;
+            var taskDto = TestData.ValidTaskDetailsDto;
             _taskItemRepositoryMock.Setup(r => r.GetTaskAsync(1)).ReturnsAsync(task);
             _mapperMock.Setup(m => m.Map<TaskItemDetailsDto>(task)).Returns(taskDto);
 
@@ -144,8 +145,8 @@ namespace TaskManagement.Tests.Controllers
         public async Task GetTasks_ReturnsOkObjectResult()
         {
             // Arrange
-            var tasks = new List<TaskItem> { new TaskItem { TaskItemId = 1, Title = "Test Task" } };
-            var taskDtos = new List<TaskItemDetailsDto> { new TaskItemDetailsDto { Title = "Test Task" } };
+            var tasks = TestData.ValidTasks;
+            var taskDtos = TestData.ValidTaskDetailsDtos;
             _taskItemRepositoryMock.Setup(r => r.GetTasksAsync()).ReturnsAsync(tasks);
             _mapperMock.Setup(m => m.Map<IEnumerable<TaskItemDetailsDto>>(tasks)).Returns(taskDtos);
 
@@ -161,8 +162,8 @@ namespace TaskManagement.Tests.Controllers
         public async Task GetTasks_WithSearchCriteria_ReturnsOkObjectResult()
         {
             // Arrange
-            var tasks = new List<TaskItem> { new TaskItem { TaskItemId = 1, Title = "Test Task" } };
-            var taskDtos = new List<TaskItemDetailsDto> { new TaskItemDetailsDto { Title = "Test Task" } };
+            var tasks = TestData.ValidTasks;
+            var taskDtos = TestData.ValidTaskDetailsDtos;
             _taskItemRepositoryMock.Setup(r => r.SearchTaskAync(null, null, 1, 10)).ReturnsAsync(tasks);
             _mapperMock.Setup(m => m.Map<IEnumerable<TaskItemDetailsDto>>(tasks)).Returns(taskDtos);
 
@@ -178,10 +179,10 @@ namespace TaskManagement.Tests.Controllers
         public async Task AssignTask_ValidUser_ReturnsOkObjectResult()
         {
             // Arrange
-            var userDto = new UserWithoutTaskDto { UserId = 1, Username = "TestUser", Email = "test@example.com" };
-            var user = new User { UserId = 1, Username = "TestUser", Email = "test@example.com" };
-            var task = new TaskItem { TaskItemId = 1, Title = "Test Task" };
-            var taskDto = new TaskItemDetailsDto { Title = "Test Task" };
+            var userDto = TestData.ValidUserWithoutTaskDto;
+            var user = TestData.ValidUser;
+            var task = TestData.ValidTask;
+            var taskDto = TestData.ValidTaskDetailsDto;
             _mapperMock.Setup(m => m.Map<User>(userDto)).Returns(user);
             _taskItemRepositoryMock.Setup(r => r.AssignTaskAsync(1, user)).ReturnsAsync(task);
             _mapperMock.Setup(m => m.Map<TaskItemDetailsDto>(task)).Returns(taskDto);
