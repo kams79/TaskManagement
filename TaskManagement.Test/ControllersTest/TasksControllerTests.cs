@@ -132,7 +132,7 @@ namespace TaskManagement.Test.ControllersTest
         public async Task GetTask_InvalidId_ReturnsNoContent()
         {
             // Arrange
-            _taskItemRepositoryMock.Setup(r => r.GetTaskAsync(1)).ReturnsAsync((TaskItem)null);
+            _taskItemRepositoryMock.Setup(r => r.GetTaskAsync(1)).ReturnsAsync((TaskItem?)null);
 
             // Act
             var result = await _controller.GetTask(1);
